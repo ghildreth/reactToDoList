@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import List from './List';
+
 
 class App extends Component {
   constructor(props){
@@ -21,7 +21,13 @@ class App extends Component {
       items: [...this.state.items, this.state.term]
     });
   }
-  
+
+  handleRemove(id){
+    // Filter all todos except the one to be removed
+    const remainder = this.state.items.filter((item) => {
+      if(item.id !== id) return item;
+    });
+  }
 
   render() {
     return (
@@ -30,7 +36,7 @@ class App extends Component {
         <input value={this.state.term} onChange={this.onChange} />
         <button>Submit</button>
         </form>
-        <List items={this.state.items}/>
+        <List items={this.state.items} remove={this.handleRemove.bind(this)}/>
       </div>
     );
   }
